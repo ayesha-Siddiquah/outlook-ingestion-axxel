@@ -46,6 +46,23 @@ app.get("/", (req, res) => {
 });
 
 
+///////INGEST ENDPOINT
+
+app.post("/ingest", (req, res) => {
+    const { subject, body } = req.body;
+
+    console.log("📩 Incoming email:");
+    console.log("Subject:", subject);
+    console.log("Body:", body);
+
+    // No logic, no filtering — just ingestion
+    res.status(200).json({
+        success: true,
+        received: true
+    });
+});
+
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`📬 Outlook Ingestion API running on port ${PORT}`);

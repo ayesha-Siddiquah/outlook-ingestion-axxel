@@ -37,6 +37,15 @@ app.post("/email/ingest", (req, res) => {
     });
 });
 
+app.get("/", (req, res) => {
+    res.json({
+        status: "ok",
+        service: "Outlook Ingestion API",
+        timestamp: new Date().toISOString()
+    });
+});
+
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`📬 Outlook Ingestion API running on port ${PORT}`);

@@ -37,6 +37,7 @@ app.post("/email/ingest", (req, res) => {
     });
 });
 
+///// checking the status 
 app.get("/", (req, res) => {
     res.json({
         status: "ok",
@@ -54,13 +55,12 @@ app.post("/ingest", (req, res) => {
     console.log("📩 Incoming email:");
     console.log("Subject:", subject);
     console.log("Body:", body);
-
-    // No logic, no filtering — just ingestion
     res.status(200).json({
-        success: true,
-        received: true
+        subject,
+        body
     });
 });
+
 
 
 const PORT = process.env.PORT || 3001;

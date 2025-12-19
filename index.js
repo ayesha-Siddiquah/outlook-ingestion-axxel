@@ -50,16 +50,30 @@ app.get("/", (req, res) => {
 ///////INGEST ENDPOINT
 
 app.post("/ingest", (req, res) => {
-    const { subject, body } = req.body;
-
-    console.log("📩 Incoming email:");
-    console.log("Subject:", subject);
-    console.log("Body:", body);
-    res.status(200).json({
+    const {
         subject,
-        body
+        body,
+        from,
+        received_at,
+        source = "outlook"
+    } = req.body;
+
+    const ingestedEmail = {
+        subject,
+        body,
+        from: from || "unknown@sender",
+        received_at: received_at || new Date().toISOString(),
+        source
+    };
+
+    console.log("📩 Email ingested:", ingestedEmail);
+
+    res.status(200).json({
+        status: "ingested",
+        email: ingestedEmail
     });
 });
+
 
 
 

@@ -58,11 +58,24 @@ app.post("/ingest", (req, res) => {
         source = "outlook"
     } = req.body;
 
+    // Format date for demo readability: "19 Dec 2025"
+    const formattedReceivedAt = received_at
+        ? new Date(received_at).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric"
+          })
+        : new Date().toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric"
+          });
+
     const ingestedEmail = {
         subject,
         body,
         from: from || "unknown@sender",
-        received_at: received_at || new Date().toISOString(),
+        received_at: formattedReceivedAt,
         source
     };
 
@@ -73,6 +86,7 @@ app.post("/ingest", (req, res) => {
         email: ingestedEmail
     });
 });
+
 
 
 
